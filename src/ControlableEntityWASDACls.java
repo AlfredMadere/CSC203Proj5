@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.List;
 
 public class ControlableEntityWASDACls extends Dude implements KeyListener {
-
+    int h = 1;
 
     public ControlableEntityWASDACls(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> image) {
         super(id, position, animationPeriod, actionPeriod, resourceLimit, image);
