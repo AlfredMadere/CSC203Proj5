@@ -5,17 +5,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public abstract class Dude extends TargetingEntity{
-    private int resourceLimit;
-    public Dude(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> image ) {
-        super(id, position, image, animationPeriod, actionPeriod);
+public abstract class AutonomousDude extends TargetingEntity implements Killable{
+    int health;
+    int healthLimit;
+    int resourceLimit;
+    public AutonomousDude(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> images, int healthLimit, int startingHealth ) {
+        super(id, position, images, animationPeriod, actionPeriod);
         this.resourceLimit = resourceLimit;
-    }
 
-    public int getResourceLimit() {
-        return resourceLimit;
-    }
 
+        }
 
     public Point _nextPosition(
             WorldModel world, Point destPos)
@@ -31,17 +30,29 @@ public abstract class Dude extends TargetingEntity{
         }
     }
 
-    abstract public Dude _dudeToTransformInto();
-
-    public boolean transform(
-            WorldModel world,
-            EventScheduler scheduler,
-            ImageStore imageStore)
-    {
-        SchedulableEntity miner = _dudeToTransformInto();
-        replaceWith(world, scheduler, miner);
-        miner.scheduleActions(scheduler, world, imageStore);
-        return true;
+    @Override
+    public int getHealth() {
+        return health;
     }
 
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getHealthLimit() {
+        return healthLimit;
+    }
+
+    public void setHealthLimit(int healthLimit) {
+        this.healthLimit = healthLimit;
+    }
+
+    public int getResourceLimit() {
+        return resourceLimit;
+    }
+
+    public void setResourceLimit(int resourceLimit) {
+        this.resourceLimit = resourceLimit;
+    }
 }
