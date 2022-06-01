@@ -5,43 +5,40 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public abstract class Dude extends TargetingEntity{
+public abstract class Dude extends OperableEntityCls implements Killable  {
     private int resourceLimit;
-    public Dude(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> image ) {
+    private int health;
+    private int healthLimit;
+    public Dude(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> image, int healthLimit, int startingHealth ) {
         super(id, position, image, animationPeriod, actionPeriod);
         this.resourceLimit = resourceLimit;
+        this.health = startingHealth;
+        this.healthLimit = healthLimit;
     }
 
     public int getResourceLimit() {
         return resourceLimit;
     }
 
-
-    public Point _nextPosition(
-            WorldModel world, Point destPos)
-    {
-        PathingStrategy strategy = new AStarPathingStrategy();
-        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class);
-        BiPredicate<Point, Point> withinReach = (p1, p2) -> Point.adjacent(p1, p2);
-        List<Point> points = strategy.computePath(getPosition(), destPos, canPassThrough, withinReach, PathingStrategy.CARDINAL_NEIGHBORS);
-        if (points.isEmpty()) {
-            return getPosition();
-        }else{
-            return points.get(0);
-        }
+    public void setResourceLimit(int resourceLimit) {
+        this.resourceLimit = resourceLimit;
     }
 
-    abstract public Dude _dudeToTransformInto();
-
-    public boolean transform(
-            WorldModel world,
-            EventScheduler scheduler,
-            ImageStore imageStore)
-    {
-        SchedulableEntity miner = _dudeToTransformInto();
-        replaceWith(world, scheduler, miner);
-        miner.scheduleActions(scheduler, world, imageStore);
-        return true;
+    @Override
+    public int getHealth() {
+        return health;
     }
 
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getHealthLimit() {
+        return healthLimit;
+    }
+
+    public void setHealthLimit(int healthLimit) {
+        this.healthLimit = healthLimit;
+    }
 }

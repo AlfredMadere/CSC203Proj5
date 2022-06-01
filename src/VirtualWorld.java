@@ -97,10 +97,11 @@ public final class VirtualWorld extends PApplet
         return view.viewportToWorld(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
     }
     public void keyPressed() {
+
+        //this is probbaly where key imput goes
         if (key == CODED) {
             int dx = 0;
             int dy = 0;
-
             switch (keyCode) {
                 case UP:
                     dy = -1;
@@ -114,8 +115,26 @@ public final class VirtualWorld extends PApplet
                 case RIGHT:
                     dx = 1;
                     break;
+
             }
             view.shiftView(dx, dy);
+        }else{
+
+            switch (key){
+                case 'w':
+                    //set players xvelocity to negative
+                    break;
+                case 'a':
+                    //set players xvelocity to negative
+                    break;
+                case 's':
+                    //set players xvelocity to negative
+                    break;
+                case 'd':
+                    //set players xvelocity to negative
+                    break;
+
+            }
         }
     }
 
