@@ -21,6 +21,23 @@ public class Factory {
                 animationPeriod, FAMILY_HEALTH_LIM, FAMILY_STARTING_HEALTH);
     }
 
+    public static SchedulableEntity createPlayer(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            int resourceLimit,
+            List<PImage> images)
+    {
+        return new Player(id,
+                position,
+                animationPeriod,
+                actionPeriod,
+                resourceLimit,
+                images
+                );
+    }
+
     public static Entity createHouse(
             String id, Point position, List<PImage> images)
     {

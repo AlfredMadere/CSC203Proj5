@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Player extends OperableEntityCls  {
     private int xVelocity = 0;
@@ -14,15 +15,22 @@ public class Player extends OperableEntityCls  {
 
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
-        updatePosition();
+        updatePosition(world);
         scheduler.scheduleEvent(this,
                 Factory.createActivityAction(this, world, imageStore),
                 this.getActionPeriod());
 
     }
 
-    public void updatePosition(){
-        setPosition(new Point(this.getPosition().x + xVelocity, this.getPosition().y + yVelocity));
+    public void updatePosition(WorldModel world){
+        Point newPos = new Point(this.getPosition().x + xVelocity, this.getPosition().y + yVelocity);
+        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class);
+        if(canPassThrough.test(newPos)){
+            setPosition(newPos);
+        }else{
+            xVelocity = 0;
+            yVelocity = 0;
+        }
     }
 
     public int getxVelocity() {
