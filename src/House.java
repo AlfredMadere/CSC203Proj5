@@ -9,13 +9,16 @@ import processing.core.PImage;
 
 public final class House extends EntityCls
 {
-
+    private int woodResources = 0;
     public House(
             String id,
             Point position,
-            PImage image)
+            PImage image, int fenceReq)
     {
         super(id, position, image);
+    }
+    public void increaseWoodResource(int amt){
+        woodResources += amt;
     }
 
 

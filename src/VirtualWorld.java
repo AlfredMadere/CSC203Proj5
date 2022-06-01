@@ -113,6 +113,9 @@ public final class VirtualWorld extends PApplet
             case 'd':
                 player.setxVelocity(0);
                 break;
+            case ' ':
+                player.stopChopping();
+                break;
 
         }
 
@@ -146,6 +149,7 @@ public final class VirtualWorld extends PApplet
                 case 'w':
                     //set players xvelocity to negative
                     player.setyVelocity(-1);
+                    System.out.println("ayo");
                     break;
                 case 'a':
                     player.setxVelocity(-1);
@@ -156,6 +160,10 @@ public final class VirtualWorld extends PApplet
                 case 'd':
                     player.setxVelocity(1);
                     break;
+                case ' ':
+                    player.startChopping();
+                    break;
+
 
             }
         }

@@ -12,6 +12,9 @@ public final class Util
 {
 
 
+    public static final int FAMILY_HEALTH_LIM = 6;
+    public static final int FAMILY_STARTING_HEALTH = 6;
+    public static final int HOUSE_WOOD_REQ = 100;
 
     public static final String SAPLING_KEY = "sapling";
     public static final int SAPLING_HEALTH_LIMIT = 5;
