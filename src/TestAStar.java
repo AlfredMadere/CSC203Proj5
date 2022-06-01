@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
+//dadfadfiauwe98pui
 public class TestAStar
 { //make this self referential
     private static final HashMap<Integer, aStarNode> aStarNodes= new HashMap<>(){{
