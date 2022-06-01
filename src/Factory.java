@@ -3,8 +3,8 @@ import processing.core.PImage;
 import java.util.List;
 
 public class Factory {
-    public static final int FAMILY_HEALTH_LIM = 6;
-    public static final int FAMILY_STARTING_HEALTH = 6;
+
+
     public static SchedulableEntity createDudeNotFull(
             String id,
             Point position,
@@ -18,7 +18,7 @@ public class Factory {
                 images,
                 resourceLimit,
                 actionPeriod,
-                animationPeriod, FAMILY_HEALTH_LIM, FAMILY_STARTING_HEALTH);
+                animationPeriod, Util.FAMILY_HEALTH_LIM, Util.FAMILY_STARTING_HEALTH);
     }
 
     public static SchedulableEntity createPlayer(
@@ -41,7 +41,7 @@ public class Factory {
     public static Entity createHouse(
             String id, Point position, List<PImage> images)
     {
-        return new House( id, position, images.get(0));
+        return new House( id, position, images.get(0), Util.HOUSE_WOOD_REQ);
     }
 
     public static AnimatedEntity createObstacle(
@@ -84,7 +84,7 @@ public class Factory {
             int resourceLimit,
             List<PImage> images) {
         return new FamilyDudeFull(id, position, images, resourceLimit,
-                actionPeriod, animationPeriod, FAMILY_HEALTH_LIM, FAMILY_STARTING_HEALTH);
+                actionPeriod, animationPeriod, Util.FAMILY_HEALTH_LIM, Util.FAMILY_STARTING_HEALTH);
     }
 
 
