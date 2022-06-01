@@ -7,20 +7,20 @@ import processing.core.PImage;
  * different kinds of entities that exist.
  */
 
-public final class DudeNotFull extends Dude implements AnimatedEntity, OperableEntity
-{
+public final class FamilyDudeNotFull extends FamilyDude {
     private int resourceCount;
 
 
-    public DudeNotFull(
+    public FamilyDudeNotFull(
             String id,
             Point position,
             List<PImage> images,
             int resourceLimit,
             int actionPeriod,
-            int animationPeriod)
+            int animationPeriod, int healthLimit, int startingHealth)
     {
-        super(id, position, animationPeriod, actionPeriod, resourceLimit, images);
+        super(id, position, animationPeriod, actionPeriod, resourceLimit, images, healthLimit, startingHealth);
+
     }
 
 
@@ -70,8 +70,8 @@ public final class DudeNotFull extends Dude implements AnimatedEntity, OperableE
         return false;
     }
 
-    public Dude _dudeToTransformInto() {
-        Dude miner = (Dude)Factory.createDudeFull(this.getId(),
+    public FamilyDude _dudeToTransformInto() {
+        FamilyDude miner = (FamilyDude)Factory.createDudeFull(this.getId(),
                 this.getPosition(), this.getActionPeriod(),
                 this.getAnimationPeriod(),
                 this.getResourceLimit(),

@@ -7,18 +7,18 @@ import processing.core.PImage;
  * different kinds of entities that exist.
  */
 
-public final class DudeFull extends Dude
+public final class FamilyDudeFull extends FamilyDude
 {
 
-    public DudeFull(
+    public FamilyDudeFull(
             String id,
             Point position,
             List<PImage> images,
             int resourceLimit,
             int actionPeriod,
-            int animationPeriod)
+            int animationPeriod, int healthLimit, int startingHealth)
     {
-        super(id, position, animationPeriod, actionPeriod, resourceLimit, images);
+        super(id, position, animationPeriod, actionPeriod, resourceLimit, images, healthLimit, startingHealth);
 
 
     }
@@ -54,13 +54,23 @@ public final class DudeFull extends Dude
     }
 
     @Override
-    public Dude _dudeToTransformInto() {
-        Dude miner = (Dude)Factory.createDudeNotFull(this.getId(),
+    public FamilyDude _dudeToTransformInto() {
+        FamilyDude miner = (FamilyDude)Factory.createDudeNotFull(this.getId(),
                 this.getPosition(), this.getActionPeriod(),
                 this.getAnimationPeriod(),
-                this.getResourceLimit(),
+                getResourceLimit(),
                 this.getImages());
 
         return miner;
+    }
+
+    @Override
+    public int getHealth() {
+        return 0;
+    }
+
+    @Override
+    public void setHealth(int health) {
+
     }
 }
