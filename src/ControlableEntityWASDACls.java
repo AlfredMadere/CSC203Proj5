@@ -26,25 +26,8 @@ public class ControlableEntityWASDACls extends Dude implements KeyListener {
 
     }
 
-    @Override
-    public PImage getCurrentImage() {
-        return null;
-    }
 
-    @Override
-    public String getId() {
-        return null;
-    }
 
-    @Override
-    public Point getPosition() {
-        return null;
-    }
-
-    @Override
-    public void setPosition(Point position) {
-
-    }
 
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
