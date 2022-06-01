@@ -76,6 +76,17 @@ public final class GameLoader
     public static final int TREE_ACTION_PERIOD = 5;
     public static final int TREE_HEALTH = 6;
 
+    public static final String PLAYER_KEY = "player";
+    public static final int PLAYER_NUM_PROPERTIES = 7;
+    public static final int PLAYER_ID = 1;
+    public static final int PLAYER_COL = 2;
+    public static final int PLAYER_ROW = 3;
+    public static final int PLAYER_ANIMATION_PERIOD = 4;
+    public static final int PLAYER_ACTION_PERIOD = 5;
+    //public static final int PLAYER_HEALTH = 6;
+    public static final int PLAYER_LIMIT = 6;
+
+
 
 
     //this can stay
@@ -151,7 +162,7 @@ public final class GameLoader
     public static void load(
             Scanner in, WorldModel world, ImageStore imageStore)
     {
-        int lineNumber = 0;
+        int lineNumber = 1;
         while (in.hasNextLine()) {
             try {
                 if (!processLine(in.nextLine(), world, imageStore)) {
@@ -192,10 +203,29 @@ public final class GameLoader
                     return parseTree(properties, world, imageStore);
                 case SAPLING_KEY:
                     return parseSapling(properties, world, imageStore);
+                case PLAYER_KEY:
+                    return parsePlayer(properties, world, imageStore);
             }
         }
 
         return false;
+    }
+
+    public static boolean parsePlayer(
+            String[] properties, WorldModel world, ImageStore imageStore) {
+        if (properties.length == PLAYER_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[PLAYER_COL]),
+                    Integer.parseInt(properties[PLAYER_ROW]));
+            Entity entity = Factory.createPlayer(properties[PLAYER_ID],
+                    pt,
+                    Integer.parseInt(properties[PLAYER_ACTION_PERIOD]),
+                    Integer.parseInt(properties[PLAYER_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[PLAYER_LIMIT]),
+                    imageStore.getImageList(PLAYER_KEY));
+            VirtualWorld.setPlayer((Player) entity);
+            world.tryAddEntity(entity);
+        }
+        return properties.length == PLAYER_NUM_PROPERTIES;
     }
 
     public static boolean parseBackground(

@@ -33,13 +33,13 @@ public final class VirtualWorld extends PApplet
     private static final double FAST_SCALE = 0.5;
     private static final double FASTER_SCALE = 0.25;
     private static final double FASTEST_SCALE = 0.10;
-
     private static double timeScale = 1.0;
 
     private ImageStore imageStore;
     private WorldModel world;
     private WorldView view;
     private EventScheduler scheduler;
+    private static Player player;
 
     private long nextTime;
 
@@ -96,6 +96,28 @@ public final class VirtualWorld extends PApplet
     {
         return view.viewportToWorld(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
     }
+    public static void setPlayer(Player p){
+        player = p;
+    }
+    public void keyReleased() {
+
+        //this is probbaly where key imput goes
+
+        switch (key){
+            case 'w':
+            case 's':
+                //set players xvelocity to negative
+                player.setyVelocity(0);
+                break;
+            case 'a':
+            case 'd':
+                player.setxVelocity(0);
+                break;
+
+        }
+
+    }
+
     public void keyPressed() {
 
         //this is probbaly where key imput goes
@@ -123,15 +145,16 @@ public final class VirtualWorld extends PApplet
             switch (key){
                 case 'w':
                     //set players xvelocity to negative
+                    player.setyVelocity(-1);
                     break;
                 case 'a':
-                    //set players xvelocity to negative
+                    player.setxVelocity(-1);
                     break;
                 case 's':
-                    //set players xvelocity to negative
+                    player.setyVelocity(1);
                     break;
                 case 'd':
-                    //set players xvelocity to negative
+                    player.setxVelocity(1);
                     break;
 
             }
