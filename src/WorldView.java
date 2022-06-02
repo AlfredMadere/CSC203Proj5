@@ -28,6 +28,11 @@ public final class WorldView
     public void drawViewport() {
         drawBackground();
         drawEntities();
+        drawDashboard();
+    }
+
+    public void drawDashboard() {
+        this.screen.text("begging the dashboard", viewport.getNumCols() * tileWidth - 200, 50);
     }
 
     public void drawEntities() {
@@ -56,6 +61,7 @@ public final class WorldView
             }
         }
     }
+
     public void shiftView( int colDelta, int rowDelta) {
         int newCol = clamp(viewport.getCol() + colDelta, 0,
                 world.getNumCols() - viewport.getNumCols());
