@@ -21,7 +21,6 @@ public class Player extends OperableEntityCls  {
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         updatePosition(world);
-        System.out.println(resourceCount);
         if(chopping && resourceCount < resourceLimit){
             tryToChopTree(world);
         }
