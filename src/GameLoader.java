@@ -53,10 +53,11 @@ public final class GameLoader
     public static final int DUDE_ANIMATION_PERIOD = 6;
 
     public static final String HOUSE_KEY = "house";
-    public static final int HOUSE_NUM_PROPERTIES = 4;
+    public static final int HOUSE_NUM_PROPERTIES = 5;
     public static final int HOUSE_ID = 1;
     public static final int HOUSE_COL = 2;
     public static final int HOUSE_ROW = 3;
+    public static final int HOUSE_LIMIT = 4;
 
     public static final String FAIRY_KEY = "fairy";
     public static final int FAIRY_NUM_PROPERTIES = 6;
@@ -222,7 +223,6 @@ public final class GameLoader
                     Integer.parseInt(properties[PLAYER_ANIMATION_PERIOD]),
                     Integer.parseInt(properties[PLAYER_LIMIT]),
                     imageStore.getImageList(PLAYER_KEY));
-            VirtualWorld.setPlayer((Player) entity);
             world.tryAddEntity(entity);
         }
         return properties.length == PLAYER_NUM_PROPERTIES;
@@ -330,7 +330,7 @@ public final class GameLoader
             Point pt = new Point(Integer.parseInt(properties[HOUSE_COL]),
                     Integer.parseInt(properties[HOUSE_ROW]));
             Entity entity = Factory.createHouse(properties[HOUSE_ID], pt,
-                    imageStore.getImageList(HOUSE_KEY));
+                    imageStore.getImageList(HOUSE_KEY), Integer.parseInt(properties[HOUSE_LIMIT]));
             world.tryAddEntity(entity);
         }
 

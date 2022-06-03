@@ -9,6 +9,9 @@ public final class WorldView
     private int tileWidth;
     private int tileHeight;
     private Viewport viewport;
+    private int viewportWidth;
+    private int viewportHeight;
+
 
     public WorldView(
             int numRows,
@@ -23,6 +26,8 @@ public final class WorldView
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.viewport = new Viewport(numRows, numCols);
+        viewportWidth = viewport.getNumCols() * tileWidth;
+        viewportHeight = viewport.getNumRows() * tileHeight;
     }
 
     public void drawViewport() {
@@ -32,7 +37,14 @@ public final class WorldView
     }
 
     public void drawDashboard() {
-        this.screen.text("begging the dashboard", viewport.getNumCols() * tileWidth - 200, 50);
+        int resourcesTillFull = world.getPlayer().getResourceLimit() - world.getPlayer().getResourceCount();
+        int houseResourcesToGo = world.getHouse().getResourceLimit() - world.getHouse().getResourceCount() ;
+        String dashBoardText = "Fence needs " + houseResourcesToGo + " more wood\nCan cary " + resourcesTillFull + " more wood";
+        this.screen.fill(150);
+        this.screen.noStroke();
+        this.screen.rect(viewportWidth - Util.DASHBOARD_WIDTH, 0, Util.DASHBOARD_WIDTH, Util.DASHBOARD_HEIGHT);
+        this.screen.fill(0);
+        this.screen.text(dashBoardText, viewport.getNumCols() * tileWidth - (Util.DASHBOARD_WIDTH - 15), 50);
     }
 
     public void drawEntities() {

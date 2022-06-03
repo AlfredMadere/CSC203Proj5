@@ -9,16 +9,30 @@ import processing.core.PImage;
 
 public final class House extends EntityCls
 {
-    private int woodResources = 0;
+    private int resourceCount = 0;
+    private int resourceLimit;
     public House(
             String id,
             Point position,
             PImage image, int fenceReq)
     {
         super(id, position, image);
+        resourceLimit = fenceReq;
     }
-    public void increaseWoodResource(int amt){
-        woodResources += amt;
+    public void increaseResource(int amt){
+        resourceCount += amt;
+    }
+
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    public void setResourceCount(int resourceCount) {
+        this.resourceCount = resourceCount;
+    }
+
+    public int getResourceLimit() {
+        return resourceLimit;
     }
 
 

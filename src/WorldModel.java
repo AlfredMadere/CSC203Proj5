@@ -14,6 +14,8 @@ public final class WorldModel
     private Background background[][];
     private Entity occupancy[][];
     private Set<Entity> entities;
+    private Player player;
+    private House house;
 
     public WorldModel(int numRows, int numCols, Background defaultBackground) {
         this.numRows = numRows;
@@ -101,7 +103,17 @@ public final class WorldModel
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
         }
-
+        if(entity instanceof Player){
+            if(player != null){
+                throw new IllegalArgumentException("cannot have two players");
+            }
+            this.player = (Player) entity;
+        }else if(entity instanceof House){
+            if(house != null){
+                throw new IllegalArgumentException("cannot have two houses");
+            }
+            this.house = (House) entity;
+        }
         addEntity(entity);
     }
     public void addEntity(Entity entity) {
@@ -176,6 +188,11 @@ public final class WorldModel
         return entities;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
 
-
+    public House getHouse() {
+        return house;
+    }
 }

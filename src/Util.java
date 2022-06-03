@@ -11,6 +11,9 @@ import processing.core.PApplet;
 public final class Util
 {
 
+    public static final int DASHBOARD_WIDTH = 200;
+    public static final int DASHBOARD_HEIGHT = 100;
+
 
     public static final int FAMILY_HEALTH_LIM = 6;
     public static final int FAMILY_STARTING_HEALTH = 6;
