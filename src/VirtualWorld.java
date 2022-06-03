@@ -39,7 +39,6 @@ public final class VirtualWorld extends PApplet
     private WorldModel world;
     private WorldView view;
     private EventScheduler scheduler;
-    private static Player player;
 
     private long nextTime;
 
@@ -96,9 +95,6 @@ public final class VirtualWorld extends PApplet
     {
         return view.viewportToWorld(mouseX/TILE_WIDTH, mouseY/TILE_HEIGHT);
     }
-    public static void setPlayer(Player p){
-        player = p;
-    }
     public void keyReleased() {
 
         //this is probbaly where key imput goes
@@ -107,14 +103,14 @@ public final class VirtualWorld extends PApplet
             case 'w':
             case 's':
                 //set players xvelocity to negative
-                player.setyVelocity(0);
+                world.getPlayer().setyVelocity(0);
                 break;
             case 'a':
             case 'd':
-                player.setxVelocity(0);
+                 world.getPlayer().setxVelocity(0);
                 break;
             case ' ':
-                player.stopChopping();
+                 world.getPlayer().stopChopping();
                 break;
 
         }
@@ -148,20 +144,19 @@ public final class VirtualWorld extends PApplet
             switch (key){
                 case 'w':
                     //set players xvelocity to negative
-                    player.setyVelocity(-1);
-                    System.out.println("ayo");
+                     world.getPlayer().setyVelocity(-1);
                     break;
                 case 'a':
-                    player.setxVelocity(-1);
+                     world.getPlayer().setxVelocity(-1);
                     break;
                 case 's':
-                    player.setyVelocity(1);
+                     world.getPlayer().setyVelocity(1);
                     break;
                 case 'd':
-                    player.setxVelocity(1);
+                     world.getPlayer().setxVelocity(1);
                     break;
                 case ' ':
-                    player.startChopping();
+                     world.getPlayer().startChopping();
                     break;
 
 

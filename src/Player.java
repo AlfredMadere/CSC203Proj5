@@ -77,7 +77,7 @@ public class Player extends OperableEntityCls  {
         if (target.isPresent() && Point.adjacent(target.get().getPosition(), getPosition())){
             if(target.get() instanceof House){
                 House house = (House) target.get();
-                house.increaseWoodResource(resourceCount);
+                house.increaseResource(resourceCount);
                 resourceCount = 0;
 
             }
@@ -93,20 +93,19 @@ public class Player extends OperableEntityCls  {
         chopping = false;
     }
 
-
-    public int getxVelocity() {
-        return xVelocity;
-    }
-
     public void setxVelocity(int xVelocity) {
         this.xVelocity = xVelocity;
     }
 
-    public int getyVelocity() {
-        return yVelocity;
-    }
-
     public void setyVelocity(int yVelocity) {
         this.yVelocity = yVelocity;
+    }
+
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    public int getResourceLimit() {
+        return resourceLimit;
     }
 }

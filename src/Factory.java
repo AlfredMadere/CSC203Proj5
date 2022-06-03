@@ -39,9 +39,9 @@ public class Factory {
     }
 
     public static Entity createHouse(
-            String id, Point position, List<PImage> images)
+            String id, Point position, List<PImage> images, int fenceReq)
     {
-        return new House( id, position, images.get(0), Util.HOUSE_WOOD_REQ);
+        return new House( id, position, images.get(0), fenceReq);
     }
 
     public static AnimatedEntity createObstacle(
