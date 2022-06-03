@@ -41,7 +41,13 @@ public class Factory {
     public static Entity createHouse(
             String id, Point position, List<PImage> images, int fenceReq)
     {
-        return new House( id, position, images.get(0), fenceReq);
+        return new House( id, position, images.get(0), fenceReq, false); //default is a non mega house
+    }
+
+    public static Entity createMegaHouse(
+            String id, Point position, List<PImage> images, int fenceReq)
+    {
+        return new House( id, position, images.get(0), fenceReq, true); //default is a non mega house
     }
 
     public static AnimatedEntity createObstacle(

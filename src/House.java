@@ -11,13 +11,15 @@ public final class House extends EntityCls
 {
     private int resourceCount = 0;
     private int resourceLimit;
+    private boolean isMega;
     public House(
             String id,
             Point position,
-            PImage image, int fenceReq)
+            PImage image, int fenceReq, boolean mega)
     {
         super(id, position, image);
         resourceLimit = fenceReq;
+        isMega = mega;
     }
     public void increaseResource(int amt){
         resourceCount += amt;
@@ -33,6 +35,10 @@ public final class House extends EntityCls
 
     public int getResourceLimit() {
         return resourceLimit;
+    }
+
+    public boolean isMega(){
+        return isMega;
     }
 
 

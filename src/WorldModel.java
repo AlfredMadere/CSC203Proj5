@@ -130,6 +130,18 @@ public final class WorldModel
             return Optional.empty();
         }
     }
+
+    public void upgradeHouse(Point pressed, EventScheduler scheduler, ImageStore imageStore){
+        if (getHouse().getPosition().equals(pressed) && !getHouse().isMega()){ //changed this to be more dynamic
+            House oldHouse = getHouse();
+            removeEntity(oldHouse);
+            scheduler.unscheduleAllEvents(oldHouse);
+            House newHouse = (House) Factory.createMegaHouse("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion"), 20);
+            addEntity(newHouse);
+            setHouse(newHouse);
+
+        }
+    }
     public void moveEntity(Entity entity, Point pos) {
         Point oldPos = entity.getPosition();
         if (withinBounds(pos) && !pos.equals(oldPos)) {
@@ -194,5 +206,8 @@ public final class WorldModel
 
     public House getHouse() {
         return house;
+    }
+    public void setHouse(House h) {
+        this.house = h;
     }
 }
