@@ -86,6 +86,9 @@ public final class VirtualWorld extends PApplet
                 world.removeEntity(oldHouse.get());
                 scheduler.unscheduleAllEvents(oldHouse.get());
                 world.addEntity(new House("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion").get(0), 20));
+=======
+                world.addEntity(new House("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion").get(0)));
+>>>>>>> 8e0c1a313b50f740ccb02c534d54637d959ada2a
 
 
             }
