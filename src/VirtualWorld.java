@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.Optional;
+import java.util.*;
 
 import processing.core.*;
 
@@ -80,13 +79,21 @@ public final class VirtualWorld extends PApplet
     // Just for debugging and for P5
     public void mousePressed() {
         Point pressed = mouseToPoint(mouseX, mouseY);
-        System.out.println("CLICK! " + pressed.x + ", " + pressed.y);
+        System.out.println("x: " + pressed.x + " y: " + pressed.y);
+        if (pressed.x == 3 && pressed.y == 3){ //checks if you clicked on the house
+            Optional<Entity> oldHouse = world.findNearest(pressed, new ArrayList<>(List.of(House.class)));
+            if(oldHouse.isPresent()) {
+                world.removeEntity(oldHouse.get());
+                scheduler.unscheduleAllEvents(oldHouse.get());
+                world.addEntity(new House("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion").get(0), 20));
+=======
+                world.addEntity(new House("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion").get(0)));
+>>>>>>> 8e0c1a313b50f740ccb02c534d54637d959ada2a
 
-        Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (entityOptional.isPresent())
-        {
-            Entity entity = entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getClass() + " : " + "took the health thing out");
+
+            }
+            //creating rock barrier below
+
         }
 
     }
