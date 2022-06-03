@@ -1,4 +1,5 @@
 house images/house.bmp 255 255 255 0
+mansion images/mansion.png
 obstacle images/water0.png
 obstacle images/water1.png
 obstacle images/water2.png
