@@ -80,18 +80,9 @@ public final class VirtualWorld extends PApplet
     public void mousePressed() {
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("x: " + pressed.x + " y: " + pressed.y);
-        if (pressed.x == 3 && pressed.y == 3){ //checks if you clicked on the house
-            Optional<Entity> oldHouse = world.findNearest(pressed, new ArrayList<>(List.of(House.class)));
-            if(oldHouse.isPresent()) {
-                world.removeEntity(oldHouse.get());
-                scheduler.unscheduleAllEvents(oldHouse.get());
-                world.addEntity(new House("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion").get(0), 20));
-
-
-            }
+        world.upgradeHouse(pressed, scheduler, imageStore);
+        //world.getPlayer().plantSapling(pressed);
             //creating rock barrier below
-
-        }
 
     }
 
