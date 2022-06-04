@@ -1,5 +1,7 @@
 import processing.core.PImage;
 
+import java.awt.*;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Player extends OperableEntityCls  {
     private boolean chopping = false;
     private int resourceCount = 0;
     private int resourceLimit;
+    private int planted = 0;
     public Player(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> image) {
         super(id, position, image, animationPeriod, actionPeriod);
         this.resourceLimit = resourceLimit;
@@ -21,7 +24,7 @@ public class Player extends OperableEntityCls  {
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         updatePosition(world);
-        if(chopping && resourceCount < resourceLimit){
+        if(chopping){
             tryToChopTree(world);
         }
         emptyWhenNextToHouse(world);
@@ -36,6 +39,9 @@ public class Player extends OperableEntityCls  {
         Point newPos = new Point(this.getPosition().x + xVelocity, this.getPosition().y + yVelocity);
         Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class);
         if(canPassThrough.test(newPos)){
+            if(world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() == Stump.class){
+                world.removeEntity(world.getOccupant(newPos).get());
+            }
             setPosition(newPos);
         }else{
             xVelocity = 0;
@@ -64,7 +70,9 @@ public class Player extends OperableEntityCls  {
         if (target instanceof Tree ){
             Tree p = (Tree) target;
             if(p.getHealth() > 0) {
-                this.resourceCount += 1;
+                if(resourceCount < resourceLimit){
+                    resourceCount += 1;
+                }
                 p.setHealth(p.getHealth() - 1);
             }
         }
@@ -85,6 +93,27 @@ public class Player extends OperableEntityCls  {
 
     }
 
+    public void plantSapling(Point pressed, WorldModel world, ImageStore imageStore, EventScheduler scheduler){
+        Optional<Entity> entityOptional = world.getOccupant(pressed);
+        if (!entityOptional.isPresent() && Point.adjacent(pressed, getPosition()) && resourceCount > 0) {
+            Sapling plantedSapling = (Sapling) Factory.createSapling("planted_sapling_" + planted, pressed, imageStore.getImageList(Util.SAPLING_KEY));
+            world.addEntity(plantedSapling);
+            plantedSapling.scheduleActions(scheduler, world, imageStore);
+            planted++;
+            decreaseResources(1);
+            //create a sapling(eventually seeds) in the location
+        }
+    }
+
+    public void decreaseResources (int amt){
+        int newResourceCount = resourceCount - amt;
+        if(amt < 0){
+            resourceCount = 0;
+        }else{
+            resourceCount = newResourceCount;
+        }
+
+    }
     public void startChopping(){
         chopping = true;
     }

@@ -80,8 +80,8 @@ public final class VirtualWorld extends PApplet
     public void mousePressed() {
         Point pressed = mouseToPoint(mouseX, mouseY);
         System.out.println("x: " + pressed.x + " y: " + pressed.y);
-        world.upgradeHouse(pressed, scheduler, imageStore);
-        //world.getPlayer().plantSapling(pressed);
+        world.upgradeHouse(pressed, scheduler, imageStore); // code for creating rock barrier should be inside this funciton
+        world.getPlayer().plantSapling(pressed, world, imageStore, scheduler);
             //creating rock barrier below
 
     }
