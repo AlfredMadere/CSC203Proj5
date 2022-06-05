@@ -8,6 +8,8 @@ public class Game{
     private Stack<GameState> states = new Stack<>();
     private static Game singleton;
     private PApplet screen;
+    private int mouseX;
+    private int mouseY;
 
     public Game(){
 
@@ -84,10 +86,20 @@ public class Game{
         states.peek().HandleEvents(event);
     }
 
-    public void Update() {
+    public void Update(int mouseX, int mouseY) {
         // let the state update the game
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
         states.peek().Update(this);
 
+    }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
     }
 
     public void Draw() {

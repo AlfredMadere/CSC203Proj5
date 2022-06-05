@@ -25,7 +25,7 @@ public final class Main extends PApplet
 
     public void draw(){
         if(game.running()){
-            game.Update();
+            game.Update(mouseX, mouseY);
             game.Draw();
         }else{
             game.cleanup();
@@ -39,6 +39,14 @@ public final class Main extends PApplet
     public void mousePressed() {
         Point mouseLoc = new Point(mouseX, mouseY);
         game.handleEvents(new MouseEvent(mouseLoc, true));
+
+
+
+    }
+
+    public void mouseReleased() {
+        Point mouseLoc = new Point(mouseX, mouseY);
+        game.handleEvents(new MouseEvent(mouseLoc, false));
 
 
 

@@ -1,6 +1,10 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static processing.core.PConstants.CODED;
 
 public class IntroState implements GameState{
@@ -9,6 +13,7 @@ public class IntroState implements GameState{
     private static GameState singleton;
     private PImage backgroundImage;
     private Game game;
+    private List<Button> buttonList = new ArrayList<>();
 
 
     private long nextTime;
@@ -27,6 +32,10 @@ public class IntroState implements GameState{
         PImage img = screen.loadImage(backgroundImageName);
         img.resize(Util.VIEW_WIDTH, Util.VIEW_HEIGHT);// figure out how to resize
         backgroundImage = img;
+        Button startButton = new RoundButton(100, new Color(255, 0, 0), "start", new Point(Util.VIEW_WIDTH/2, Util.VIEW_HEIGHT/2));
+        startButton.setAction(() -> changeState(GamePlayState.getSingleton()));
+        buttonList.add(startButton);
+
 
     }
 
@@ -47,8 +56,8 @@ public class IntroState implements GameState{
 
     @Override
     public void HandleEvents(UserEvent event) {
-        if(event instanceof MouseEvent) {
-            changeState(GamePlayState.getSingleton());
+        for(Button b : buttonList){
+            b.handleUserEvent(event);
         }
     }
 
@@ -58,13 +67,18 @@ public class IntroState implements GameState{
     public void Draw(Game game) {
         this.screen.image(backgroundImage, 0, 0,
                screen.displayWidth, screen.displayHeight);
+        for(Button b : buttonList){
+            b.draw(this.screen);
+        }
         //this.screen.background(backgroundImage);
 
     }
 
     @Override
     public void Update(Game game) {
-
+        for(Button b : buttonList){
+            b.update(game.getMouseX(), game.getMouseY());
+        }
     }
 
     @Override
