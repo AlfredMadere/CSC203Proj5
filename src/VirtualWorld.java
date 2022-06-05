@@ -85,13 +85,35 @@ public final class VirtualWorld extends PApplet
             if(oldHouse.isPresent()) {
                 world.removeEntity(oldHouse.get());
                 scheduler.unscheduleAllEvents(oldHouse.get());
-                world.addEntity(new House("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion").get(0), 20));
-
+                world.addEntity(new House("Mansion", new Point(pressed.x - 2, pressed.y - 3), imageStore.getImageList("mansion").get(0), 20));
+                addRockBarrier();
+                //used random animation period, action period, and resourcelimit
             }
-            //creating rock barrier below
-
         }
 
+    }
+
+    public void addRockBarrier(){
+        //helper method to avoid cluttering mousePressed
+        world.addEntity(new Rock("Rock", new Point(0, 1), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(0, 2), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(0, 3), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(0, 4), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(0, 5), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(0, 0), imageStore.getImageList("rock").get(0), 10));
+
+        world.addEntity(new Rock("Rock", new Point(1, 0), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(2, 0), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(3, 0), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(4, 0), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(5, 0), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(6, 0), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(7, 0), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(7, 1), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(7, 2), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(7, 3), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(7, 4), imageStore.getImageList("rock").get(0), 10));
+        world.addEntity(new Rock("Rock", new Point(7, 5), imageStore.getImageList("rock").get(0), 10));
     }
 
     private Point mouseToPoint(int x, int y)
