@@ -4,6 +4,7 @@ import processing.core.PImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.Key;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import static processing.core.PConstants.*;
@@ -105,7 +106,12 @@ public class GamePlayState implements GameState{
 
     @Override
     public void Cleanup() {
-
+        //unschedule all entities
+        Iterator<Entity> iter = world.getEntities().iterator();
+        while(iter.hasNext()){
+            scheduler.unscheduleAllEvents(iter.next());
+            //world.removeEntity(iter.next()); this line causes issues because you cant remove something from a list while iterating over it apparently
+        }
     }
 
     @Override
@@ -213,6 +219,11 @@ public class GamePlayState implements GameState{
         if (time >= nextTime) {
             this.scheduler.updateOnTime(time);
             nextTime = time + Util.TIMER_ACTION_PERIOD;
+        }
+
+        //this should not be here, this is an event
+        if(world.getHouse().isFull()){
+            game.ChangeState(WinState.getSingleton());
         }
     }
 

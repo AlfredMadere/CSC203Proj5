@@ -41,5 +41,9 @@ public final class House extends EntityCls
         return isMega;
     }
 
+    public boolean isFull(){
+        return resourceCount > resourceLimit;
+    }
+
 
 }

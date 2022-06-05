@@ -1,25 +1,20 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
-import static processing.core.PConstants.CODED;
-
-public class IntroState implements GameState{
+public class WinState implements GameState{
     String backgroundImageName = Util.INTRO_IMAGE_NAME;
     private PApplet screen;
     private static GameState singleton;
     private PImage backgroundImage;
     private Game game;
 
-
-    private long nextTime;
-
     public static GameState getSingleton (){
         if(singleton == null){
-            singleton = new IntroState();
+            singleton = new WinState() {
+            };
         }
         return singleton;
     }
-
     @Override
     public void Init(Game game) {
         this.game = game;
@@ -29,6 +24,7 @@ public class IntroState implements GameState{
         backgroundImage = img;
 
     }
+
 
     @Override
     public void Cleanup() {
@@ -46,9 +42,19 @@ public class IntroState implements GameState{
     }
 
     @Override
+    public void Update(Game game) {
+
+    }
+
+    @Override
+    public void changeState(GameState state) {
+
+    }
+
+    @Override
     public void HandleEvents(UserEvent event) {
         if(event instanceof MouseEvent) {
-            changeState(GamePlayState.getSingleton());
+            game.ChangeState(IntroState.getSingleton());
         }
     }
 
@@ -57,20 +63,9 @@ public class IntroState implements GameState{
     @Override
     public void Draw(Game game) {
         this.screen.image(backgroundImage, 0, 0,
-               screen.displayWidth, screen.displayHeight);
+                screen.displayWidth, screen.displayHeight);
         //this.screen.background(backgroundImage);
 
     }
-
-    @Override
-    public void Update(Game game) {
-
-    }
-
-    @Override
-    public void changeState( GameState state) {
-        game.ChangeState(state);
-    }
-
 
 }
