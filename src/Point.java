@@ -31,4 +31,11 @@ public final class Point
         return (p1.x == p2.x && Math.abs(p1.y - p2.y) == 1) || (p1.y == p2.y
                 && Math.abs(p1.x - p2.x) == 1);
     }
+
+    public int distanceTo(Point o){
+        int xdiff = Math.abs(o.x - x);
+        int ydiff = Math.abs(o.y - y);
+
+        return (int) Math.sqrt(xdiff*xdiff + ydiff*ydiff);
+    }
 }
