@@ -28,7 +28,7 @@ public final class Tree extends Plant
             ImageStore imageStore,
             EventScheduler scheduler)
     {
-        if (!this.transformTree(world, scheduler, imageStore)) {
+        if (!transform(world, scheduler, imageStore)) {
 
             scheduler.scheduleEvent(this,
                     Factory.createActivityAction(this, world, imageStore),
@@ -36,17 +36,5 @@ public final class Tree extends Plant
         }
     }
 
-    public boolean transformTree(
-            WorldModel world,
-            EventScheduler scheduler,
-            ImageStore imageStore)
-    {
-        if (getHealth() <= 0) {
-            killPlant(world, scheduler, imageStore);
-            return true;
-        }
-
-        return false;
-    }
 
 }

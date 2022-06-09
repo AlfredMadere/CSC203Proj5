@@ -35,6 +35,7 @@ public final class FamilyDudeFull extends FamilyDude
                 fullTarget.get(), scheduler))
         {
             transform( world, scheduler, imageStore);
+
         }
         else {
             scheduler.scheduleEvent(this,

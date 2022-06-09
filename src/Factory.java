@@ -44,6 +44,12 @@ public class Factory {
         return new House( id, position, images.get(0), fenceReq, false); //default is a non mega house
     }
 
+    public static Entity createShrub(
+            String id, Point position, List<PImage> images)
+    {
+        return new Shrub( id, position, images.get(0)); //default is a non mega house
+    }
+
     public static Entity createMegaHouse(
             String id, Point position, List<PImage> images, int fenceReq)
     {

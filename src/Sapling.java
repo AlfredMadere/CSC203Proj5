@@ -30,7 +30,7 @@ public final class Sapling extends Plant
             EventScheduler scheduler)
     {
         setHealth(getHealth()+1);
-        if (!transformSapling(world, scheduler, imageStore))
+        if (!transform(world, scheduler, imageStore))
         {
             scheduler.scheduleEvent((Entity)this,
                     Factory.createActivityAction(this, world, imageStore),
@@ -38,17 +38,15 @@ public final class Sapling extends Plant
         }
     }
 
-    public boolean transformSapling(
+
+    public boolean transform(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        if (this.getHealth() <= 0) {
-            killPlant(world, scheduler, imageStore);
 
-            return true;
-        }
-        else if (this.getHealth() >= this.healthLimit)
+        super.transform(world, scheduler, imageStore);
+        if (this.getHealth() >= this.healthLimit)
         {
             SchedulableEntity tree = Factory.createTree("tree_" + this.getId(),
                     this.getPosition(),
