@@ -8,6 +8,7 @@ obstacle images/water0.png
 grass images/grass.png
 grass images/grass.png
 background_default images/none.bmp
+zombie_background_default images/none.bmp
 dirt images/dirt.bmp
 dirt_horiz images/dirt_horiz.png
 dirt_vert_left images/dirt_vert_right.png
@@ -26,6 +27,10 @@ dude images/dude0.png
 dude images/dude1.png
 dude images/dude2.png
 dude images/dude3.png
+zombie images/dude0.png
+zombie images/dude1.png
+zombie images/dude2.png
+zombie images/dude3.png
 fairy images/fairy0.png
 fairy images/fairy1.png
 fairy images/fairy2.png
@@ -47,4 +52,42 @@ player images/wyvern5.bmp
 player images/wyvern6.bmp
 player images/wyvern7.bmp
 player images/wyvern8.bmp
+playerZ images/wyvern1.bmp
+playerZ images/wyvern2.bmp
+playerZ images/wyvern3.bmp
+playerZ images/wyvern4.bmp
+playerZ images/wyvern5.bmp
+playerZ images/wyvern6.bmp
+playerZ images/wyvern7.bmp
+playerZ images/wyvern8.bmp
+saplingZ images/sapling0.png
+saplingZ images/sapling1.png
+saplingZ images/sapling2.png
+saplingZ images/sapling3.png
+saplingZ images/sapling4.png
+fairyZ images/fairy0.png
+fairyZ images/fairy1.png
+fairyZ images/fairy2.png
+fairyZ images/fairy3.png
+fairyZ images/fairy4.png
+fairyZ images/fairy5.png
+fairyZ images/fairy6.png
+fairyZ images/fairy7.png
+zombieZ images/dude0.png
+zombieZ images/dude1.png
+zombieZ images/dude2.png
+zombieZ images/dude3.png
+treeZ images/tree0.png
+treeZ images/tree1.png
+treeZ images/tree2.png
+treeZ images/tree3.png
+treeZ images/tree4.png
+stumpZ images/stump.png
+dudeZ images/dude0.png
+dudeZ images/dude1.png
+dudeZ images/dude2.png
+dudeZ images/dude3.png
+shrub images/sapling2.png
+
+
 

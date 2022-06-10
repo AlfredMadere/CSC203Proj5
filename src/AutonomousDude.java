@@ -16,19 +16,30 @@ public abstract class AutonomousDude extends TargetingEntity implements Killable
 
         }
 
-    public Point _nextPosition(
-            WorldModel world, Point destPos)
-    {
-        PathingStrategy strategy = new AStarPathingStrategy();
-        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class);
-        BiPredicate<Point, Point> withinReach = (p1, p2) -> Point.adjacent(p1, p2);
-        List<Point> points = strategy.computePath(getPosition(), destPos, canPassThrough, withinReach, PathingStrategy.CARDINAL_NEIGHBORS);
-        if (points.isEmpty()) {
-            return getPosition();
+//    public Point _nextPosition(
+//            WorldModel world, Point destPos)
+//    {
+//        PathingStrategy strategy = new AStarPathingStrategy();
+//        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class);
+//        BiPredicate<Point, Point> withinReach = (p1, p2) -> Point.adjacent(p1, p2);
+//        List<Point> points = strategy.computePath(getPosition(), destPos, canPassThrough, withinReach, PathingStrategy.CARDINAL_NEIGHBORS);
+//        if (points.isEmpty()) {
+//            return getPosition();
+//        }else{
+//            return points.get(0);
+//        }
+//    }
+
+    @Override
+    public void harm(int amt) {
+        int newHealth = getHealth() - amt;
+        if(newHealth < 0){
+            setHealth(0);
         }else{
-            return points.get(0);
+            setHealth(amt);
         }
     }
+
 
     @Override
     public int getHealth() {

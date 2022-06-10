@@ -4,6 +4,11 @@ import java.util.List;
 
 public class Factory {
 
+    public static Background createBackground(String id, List<PImage> images ) {
+        return new Background(id,
+                images);
+    }
+
 
     public static SchedulableEntity createDudeNotFull(
             String id,
@@ -19,6 +24,23 @@ public class Factory {
                 resourceLimit,
                 actionPeriod,
                 animationPeriod, Util.FAMILY_HEALTH_LIM, Util.FAMILY_STARTING_HEALTH);
+    }
+
+    public static SchedulableEntity createZombie(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            int resourceLimit,
+            List<PImage> images)
+    {
+        return new Zombie(id,
+                position,
+                animationPeriod,
+                actionPeriod,
+                resourceLimit,
+                images,
+                Util.FAMILY_HEALTH_LIM, Util.FAMILY_STARTING_HEALTH);
     }
 
     public static SchedulableEntity createPlayer(
@@ -42,6 +64,12 @@ public class Factory {
             String id, Point position, List<PImage> images, int fenceReq)
     {
         return new House( id, position, images.get(0), fenceReq, false); //default is a non mega house
+    }
+
+    public static Entity createShrub(
+            String id, Point position, List<PImage> images)
+    {
+        return new Shrub( id, position, images.get(0)); //default is a non mega house
     }
 
     public static Entity createMegaHouse(

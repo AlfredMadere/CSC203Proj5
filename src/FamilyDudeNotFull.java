@@ -36,15 +36,12 @@ public final class FamilyDudeNotFull extends FamilyDude {
         Optional<Entity> target =
                 world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Tree.class, Sapling.class)));
 
-        if (!target.isPresent() || !moveTo( world,
-                target.get(),
-                scheduler)
-                || !transform(world, scheduler, imageStore))
-        {
-            scheduler.scheduleEvent(this,
-                    Factory.createActivityAction(this,world, imageStore),
-                    this.getActionPeriod());
+
+        if (!target.isPresent() || !this.moveTo(world, (Entity)target.get(), scheduler) || !this.transform(world, scheduler, imageStore)) {
+            scheduler.scheduleEvent(this, Factory.createActivityAction(this, world, imageStore), (long)this.getActionPeriod());
         }
+
+
     }
 
     public void _doAdjacency(WorldModel world,

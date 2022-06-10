@@ -10,6 +10,8 @@ import processing.core.PApplet;
  */
 public final class GameLoader
 {
+    public static final String SHRUB_KEY = "shrub";
+    public static final String STUMP_KEY = "stump";
     private final Random rand = new Random();
 
     private static final int COLOR_MASK = 0xffffff;
@@ -51,6 +53,15 @@ public final class GameLoader
     public static final int DUDE_LIMIT = 4;
     public static final int DUDE_ACTION_PERIOD = 5;
     public static final int DUDE_ANIMATION_PERIOD = 6;
+
+    public static final String ZOMBIE_KEY = "zombie";
+    public static final int ZOMBIE_NUM_PROPERTIES = 7;
+    public static final int ZOMBIE_ID = 1;
+    public static final int ZOMBIE_COL = 2;
+    public static final int ZOMBIE_ROW = 3;
+    public static final int ZOMBIE_LIMIT = 4;
+    public static final int ZOMBIE_ACTION_PERIOD = 5;
+    public static final int ZOMBIE_ANIMATION_PERIOD = 6;
 
     public static final String HOUSE_KEY = "house";
     public static final int HOUSE_NUM_PROPERTIES = 5;
@@ -206,6 +217,8 @@ public final class GameLoader
                     return parseSapling(properties, world, imageStore);
                 case PLAYER_KEY:
                     return parsePlayer(properties, world, imageStore);
+                case ZOMBIE_KEY:
+                    return parseZombie(properties, world, imageStore);
             }
         }
 
@@ -273,6 +286,25 @@ public final class GameLoader
 
         return properties.length == DUDE_NUM_PROPERTIES;
     }
+
+    public static boolean parseZombie(
+            String[] properties, WorldModel world, ImageStore imageStore)
+    {
+        if (properties.length == ZOMBIE_NUM_PROPERTIES) {
+            Point pt = new Point(Integer.parseInt(properties[ZOMBIE_COL]),
+                    Integer.parseInt(properties[ZOMBIE_ROW]));
+            Entity entity = Factory.createZombie(properties[ZOMBIE_ID],
+                    pt,
+                    Integer.parseInt(properties[ZOMBIE_ACTION_PERIOD]),
+                    Integer.parseInt(properties[ZOMBIE_ANIMATION_PERIOD]),
+                    Integer.parseInt(properties[ZOMBIE_LIMIT]),
+                    imageStore.getImageList(ZOMBIE_KEY));
+            world.tryAddEntity(entity);
+        }
+
+        return properties.length == ZOMBIE_NUM_PROPERTIES;
+    }
+
 
     public static boolean parseFairy(
             String[] properties, WorldModel world, ImageStore imageStore)

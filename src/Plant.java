@@ -19,18 +19,52 @@ public abstract class Plant extends OperableEntityCls implements Killable{
         this.health = health;
     }
 
-    public void killPlant(
+    public void harm(int amt){
+        int newHealth = getHealth() - amt;
+        if(newHealth < 0){
+            setHealth(0);
+        }else{
+            setHealth(amt);
+        }
+    }
+
+    public void reduceToStump(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore) {
 
         Entity stump = Factory.createStump(this.getId(),
                 this.getPosition(),
-                imageStore.getImageList(Util.STUMP_KEY));
+                imageStore.getImageList(Util.STUMP_KEY + "Z"));
 
         replaceWith(world, scheduler, stump);
+
     }
 
+    //write code to transform plant into dead shrub thing
+    public void poisonPlant(WorldModel world,
+                            EventScheduler scheduler,
+                            ImageStore imageStore){
+        Entity shrub = Factory.createShrub(this.getId(),
+                this.getPosition(), imageStore.getImageList(Util.SHRUB_KEY));
+
+        replaceWith(world, scheduler, shrub);
+    }
+
+    //pull up common code to this from sapling and tree
+    public boolean transform (WorldModel world,
+                           EventScheduler scheduler,
+                           ImageStore imageStore){
+        if(this.getHealth() <= -9){
+            poisonPlant(world, scheduler, imageStore);
+        }
+        else if(this.getHealth() <= 0) {
+            reduceToStump(world, scheduler, imageStore);
+
+            return true;
+        }
+        return false;
+    }
 
 
 

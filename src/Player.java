@@ -9,13 +9,15 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Player extends OperableEntityCls  {
+public class Player extends OperableEntityCls implements Killable{
     private int xVelocity = 0;
     private int yVelocity = 0;
     private boolean chopping = false;
     private int resourceCount = 0;
     private int resourceLimit;
     private int planted = 0;
+    private int health = 10;
+    private int healthLimit;
     public Player(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> image) {
         super(id, position, image, animationPeriod, actionPeriod);
         this.resourceLimit = resourceLimit;
@@ -37,7 +39,7 @@ public class Player extends OperableEntityCls  {
 
     public void updatePosition(WorldModel world){
         Point newPos = new Point(this.getPosition().x + xVelocity, this.getPosition().y + yVelocity);
-        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class);
+        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || (world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class));
         if(canPassThrough.test(newPos)){
             if(world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() == Stump.class){
                 world.removeEntity(world.getOccupant(newPos).get());
@@ -114,6 +116,15 @@ public class Player extends OperableEntityCls  {
         }
 
     }
+
+
+
+    public void attractZombies(WorldModel world, boolean b){
+        List<Zombie> zombies = world.getEntities().stream().filter((e) -> e instanceof Zombie).map((e) -> (Zombie) e).toList();
+        for(Zombie zombie : zombies){
+            zombie.setOnlyTargetPlayer(b);
+        }
+    }
     public void startChopping(){
         chopping = true;
     }
@@ -136,5 +147,25 @@ public class Player extends OperableEntityCls  {
 
     public int getResourceLimit() {
         return resourceLimit;
+    }
+
+    @Override
+    public int getHealth() {
+        return health;
+    }
+
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    @Override
+    public void harm(int amt) {
+        int newHealth = getHealth() - amt;
+        if(newHealth <= 0){
+            setHealth(0);
+        }else{
+            setHealth(newHealth);
+        }
     }
 }

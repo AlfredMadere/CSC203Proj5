@@ -10,9 +10,8 @@ public abstract class TargetingEntity extends OperableEntityCls{
     }
 
     public abstract Point _nextPosition( WorldModel world, Point destPos);
-    public abstract void _doAdjacency(WorldModel world,
-                                      Entity target,
-                                      EventScheduler scheduler);
+    public abstract void _doAdjacency(WorldModel var1, Entity var2, EventScheduler var3);
+
 
     public boolean moveTo(
             WorldModel world,

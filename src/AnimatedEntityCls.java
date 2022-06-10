@@ -13,6 +13,10 @@ public class AnimatedEntityCls extends EntityCls implements AnimatedEntity {
         this.images = images;
         this.animationPeriod = animationPeriod;
     }
+
+    public void changeImages(List<PImage> images){
+        this.images = images;
+    }
     public int getAnimationPeriod() {
         return this.animationPeriod;
     }

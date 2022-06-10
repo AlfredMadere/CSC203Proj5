@@ -33,7 +33,6 @@ public abstract class OperableEntityCls extends AnimatedEntityCls implements Ope
                             EventScheduler scheduler, Entity e){
         world.removeEntity(this);
         scheduler.unscheduleAllEvents(this);
-
         world.addEntity(e);
 
     }

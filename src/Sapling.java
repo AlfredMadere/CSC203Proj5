@@ -30,7 +30,7 @@ public final class Sapling extends Plant
             EventScheduler scheduler)
     {
         setHealth(getHealth()+1);
-        if (!transformSapling(world, scheduler, imageStore))
+        if (!transform(world, scheduler, imageStore))
         {
             scheduler.scheduleEvent((Entity)this,
                     Factory.createActivityAction(this, world, imageStore),
@@ -38,24 +38,23 @@ public final class Sapling extends Plant
         }
     }
 
-    public boolean transformSapling(
+
+    public boolean transform(
             WorldModel world,
             EventScheduler scheduler,
             ImageStore imageStore)
     {
-        if (this.getHealth() <= 0) {
-            killPlant(world, scheduler, imageStore);
 
-            return true;
-        }
-        else if (this.getHealth() >= this.healthLimit)
+        super.transform(world, scheduler, imageStore);
+        if (this.getHealth() >= this.healthLimit)
         {
+            //very hacky but we want to be creating new zombie style trees for gameplay
             SchedulableEntity tree = Factory.createTree("tree_" + this.getId(),
                     this.getPosition(),
                     Util.getNumFromRange(Util.TREE_ACTION_MAX, Util.TREE_ACTION_MIN),
                     Util.getNumFromRange(Util.TREE_ANIMATION_MAX, Util.TREE_ANIMATION_MIN),
                     Util.getNumFromRange(Util.TREE_HEALTH_MAX, Util.TREE_HEALTH_MIN),
-                    imageStore.getImageList(Util.TREE_KEY));
+                    imageStore.getImageList(Util.TREE_KEY + "Z"));
 
             replaceWith(world, scheduler, tree);
             tree.scheduleActions(scheduler, world, imageStore);
