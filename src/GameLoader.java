@@ -54,7 +54,7 @@ public final class GameLoader
     public static final int DUDE_ACTION_PERIOD = 5;
     public static final int DUDE_ANIMATION_PERIOD = 6;
 
-    public static final String ZOMBIE_KEY = "zombie";
+    public static final String ZOMBIE_KEY = "dudeZ";
     public static final int ZOMBIE_NUM_PROPERTIES = 7;
     public static final int ZOMBIE_ID = 1;
     public static final int ZOMBIE_COL = 2;

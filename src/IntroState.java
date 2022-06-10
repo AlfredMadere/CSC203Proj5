@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.awt.*;
+import java.awt.Image.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +31,16 @@ public class IntroState implements GameState{
         this.game = game;
         screen = game.getScreen();
         PImage img = screen.loadImage(backgroundImageName);
-        img.resize(Util.VIEW_WIDTH, Util.VIEW_HEIGHT);// figure out how to resize
+        img.resize(Util.VIEW_WIDTH, Util.VIEW_HEIGHT); //not working for some reason?? even though this is what the internet said
+        img.updatePixels();
         backgroundImage = img;
-        Button startButton = new RoundButton(100, new Color(255, 0, 0), "start", new Point(Util.VIEW_WIDTH/2, Util.VIEW_HEIGHT/2));
+        Button startButton = new RoundButton(50, new Color(255, 0, 0), "PLAY", new Point(325, 400));
         startButton.setAction(() -> changeState(GamePlayState.getSingleton()));
         buttonList.add(startButton);
 
 
     }
+
 
     @Override
     public void Cleanup() {

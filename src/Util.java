@@ -59,7 +59,9 @@ public final class Util
     public static final double FAST_SCALE = 0.5;
     public static final double FASTER_SCALE = 0.25;
     public static final double FASTEST_SCALE = 0.10;
-    public static final String INTRO_IMAGE_NAME = "images/testIntroScreen.png" ;
+    public static final String INTRO_IMAGE_NAME = "images/introScreen.png" ;
+    public static final String WIN_SCREEN_NAME = "images/winScreen.png";
+    public static final String LOSE_SCREEN_NAME = "images/loseScreen.png";
     public static final String ZOMBIE_BACKGROUND_NAME = "zombie_background_default";
     public static String LOAD_FILE_NAME = "world.sav";
     public static double timeScale = 1.0;

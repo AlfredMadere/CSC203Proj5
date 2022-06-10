@@ -157,7 +157,7 @@ public final class WorldModel
         List<FamilyDude> dudesToBeZombieIfied = getEntities().stream().filter((e) -> e instanceof FamilyDude).map(e -> ((FamilyDude)e)).filter((d) -> validLocationsToPoison.contains(d.getPosition())).collect(Collectors.toList());
 
         for(Point p : validLocationsToPoison){
-            getBackgroundCell(p).setImages(imageStore.getImageList(Util.ZOMBIE_BACKGROUND_NAME)); // whatever the fuck I want
+            getBackgroundCell(p).setImages(imageStore.getImageList("grassZ")); // whatever the fuck I want
         }
         for(FamilyDude fd : dudesToBeZombieIfied){
             fd.transformToZombie(imageStore, this, scheduler);
@@ -221,10 +221,6 @@ public final class WorldModel
             }
 
             inZombieMode = true;
-
-
-
-
 
     }
 

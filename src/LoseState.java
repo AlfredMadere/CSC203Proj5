@@ -20,7 +20,6 @@ public class LoseState implements GameState{
         this.game = game;
         screen = game.getScreen();
         PImage img = screen.loadImage(backgroundImageName);
-        img.resize(Util.VIEW_WIDTH, Util.VIEW_HEIGHT);// figure out how to resize
         backgroundImage = img;
 
     }

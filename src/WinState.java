@@ -2,7 +2,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class WinState implements GameState{
-    String backgroundImageName = Util.INTRO_IMAGE_NAME;
+    String backgroundImageName = "winScreen.png";
     private PApplet screen;
     private static GameState singleton;
     private PImage backgroundImage;
@@ -20,7 +20,6 @@ public class WinState implements GameState{
         this.game = game;
         screen = game.getScreen();
         PImage img = screen.loadImage(backgroundImageName);
-        img.resize(Util.VIEW_WIDTH, Util.VIEW_HEIGHT);// figure out how to resize
         backgroundImage = img;
 
     }
@@ -62,7 +61,7 @@ public class WinState implements GameState{
 
     @Override
     public void Draw(Game game) {
-        this.screen.image(backgroundImage, 0, 0,
+        this.screen.image(backgroundImage.get(), 0, 0,
                 screen.displayWidth, screen.displayHeight);
         //this.screen.background(backgroundImage);
 
