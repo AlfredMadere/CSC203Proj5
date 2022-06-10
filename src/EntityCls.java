@@ -14,7 +14,9 @@ public abstract class EntityCls implements Entity{
     }
 
 
-
+    public void changeImage(PImage image){
+        this.image = image;
+    }
     public String getId() {
         return id;
     }
@@ -29,4 +31,5 @@ public abstract class EntityCls implements Entity{
     public PImage getCurrentImage() {
         return image;
     }
+
 }

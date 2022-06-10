@@ -4,6 +4,11 @@ import java.util.List;
 
 public class Factory {
 
+    public static Background createBackground(String id, List<PImage> images ) {
+        return new Background(id,
+                images);
+    }
+
 
     public static SchedulableEntity createDudeNotFull(
             String id,

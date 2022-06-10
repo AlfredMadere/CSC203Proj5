@@ -77,7 +77,7 @@ public final class Fairy extends TargetingEntity
 
             if (moveTo(world, fairyTarget.get(), scheduler)) {
                 AnimatedEntity sapling = (AnimatedEntity) Factory.createSapling("sapling_" + this.getId(), tgtPos,
-                        imageStore.getImageList(Util.SAPLING_KEY));
+                        imageStore.getImageList(Util.SAPLING_KEY + "Z"));
 
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageStore);

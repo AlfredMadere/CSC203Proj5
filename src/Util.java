@@ -19,16 +19,19 @@ public final class Util
     public static final int FAMILY_STARTING_HEALTH = 6;
     public static final int HOUSE_WOOD_REQ = 100;
 
-    public static final String SAPLING_KEY = "sapling";
+
     public static final int SAPLING_HEALTH_LIMIT = 5;
     public static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
 
-    public static final String SHRUB_KEY = "shrub";
+    //these are legit copied from loader
+    public static final String SHRUB_KEY = GameLoader.SHRUB_KEY;
+    public static final String SAPLING_KEY = GameLoader.SAPLING_KEY;
+    public static final String STUMP_KEY = GameLoader.STUMP_KEY;
+    public static final String TREE_KEY = GameLoader.TREE_KEY;
+    public static final String HOUSE_KEY = GameLoader.HOUSE_KEY;
+    public static final String ZOMBIE_KEY = GameLoader.ZOMBIE_KEY;
 
 
-    public static final String STUMP_KEY = "stump";
-
-    public static final String TREE_KEY = "tree";
 
     public static final int TREE_ANIMATION_MAX = 600;
     public static final int TREE_ANIMATION_MIN = 50;
@@ -57,6 +60,7 @@ public final class Util
     public static final double FASTER_SCALE = 0.25;
     public static final double FASTEST_SCALE = 0.10;
     public static final String INTRO_IMAGE_NAME = "images/testIntroScreen.png" ;
+    public static final String ZOMBIE_BACKGROUND_NAME = "zombie_background_default";
     public static String LOAD_FILE_NAME = "world.sav";
     public static double timeScale = 1.0;
 

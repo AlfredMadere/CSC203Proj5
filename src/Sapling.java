@@ -48,12 +48,13 @@ public final class Sapling extends Plant
         super.transform(world, scheduler, imageStore);
         if (this.getHealth() >= this.healthLimit)
         {
+            //very hacky but we want to be creating new zombie style trees for gameplay
             SchedulableEntity tree = Factory.createTree("tree_" + this.getId(),
                     this.getPosition(),
                     Util.getNumFromRange(Util.TREE_ACTION_MAX, Util.TREE_ACTION_MIN),
                     Util.getNumFromRange(Util.TREE_ANIMATION_MAX, Util.TREE_ANIMATION_MIN),
                     Util.getNumFromRange(Util.TREE_HEALTH_MAX, Util.TREE_HEALTH_MIN),
-                    imageStore.getImageList(Util.TREE_KEY));
+                    imageStore.getImageList(Util.TREE_KEY + "Z"));
 
             replaceWith(world, scheduler, tree);
             tree.scheduleActions(scheduler, world, imageStore);

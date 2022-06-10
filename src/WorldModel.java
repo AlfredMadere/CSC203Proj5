@@ -1,6 +1,7 @@
 import processing.core.PImage;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Represents the 2D World in which this simulation is running.
@@ -16,6 +17,7 @@ public final class WorldModel
     private Set<Entity> entities;
     private Player player;
     private House house;
+    private boolean inZombieMode;
 
     public WorldModel(int numRows, int numCols, Background defaultBackground) {
         this.numRows = numRows;
@@ -23,9 +25,14 @@ public final class WorldModel
         this.background = new Background[numRows][numCols];
         this.occupancy = new Entity[numRows][numCols];
         this.entities = new HashSet<>();
+        inZombieMode = false;
 
+        setBackground(defaultBackground);
+    }
+
+    public void setBackground(Background newBackground){
         for (int row = 0; row < numRows; row++) {
-            Arrays.fill(this.background[row], defaultBackground);
+            Arrays.fill(this.background[row], newBackground);
         }
     }
 
@@ -129,6 +136,42 @@ public final class WorldModel
         else {
             return Optional.empty();
         }
+    }
+
+    public void maybeChangeToZombieMode(Point pressed, EventScheduler scheduler, ImageStore imageStore){
+        /*
+        change background tiles
+        iterate through every type of entity and use a change Images method to change their images
+        to the zombie ones
+
+        then create zombies and make family spawn around house
+        */
+        if(getHouse().getPosition().equals(pressed) && !inZombieMode){
+            Background zombieModeBackground = Factory.createBackground(Util.ZOMBIE_BACKGROUND_NAME, imageStore.getImageList(Util.ZOMBIE_BACKGROUND_NAME));
+            setBackground(zombieModeBackground);
+            //this is gonna be jank because the Util key names are not static members of each class but im rushed for time sooo check this mess out
+            List<House> houses = getEntities().stream().filter((e) -> e instanceof House).map(e -> ((House)e)).collect(Collectors.toList());
+            //gonna do a little trick here where there are zombies but they look like dudes when the game starts, then they change to have zombie skin
+            List<Zombie> zombies = getEntities().stream().filter((e) -> e instanceof Zombie).map(e -> ((Zombie)e)).collect(Collectors.toList());
+            List<Tree> trees = getEntities().stream().filter((e) -> e instanceof Tree).map(e -> ((Tree)e)).collect(Collectors.toList());
+            //repeat this patern for any other entities that exist when the game starts
+            for(House h : houses){
+                h.changeImage(imageStore.getImageList(Util.HOUSE_KEY + "Z").get(0));
+            }
+            for(Zombie z : zombies){
+                z.changeImages(imageStore.getImageList(Util.ZOMBIE_KEY + "Z"));
+            }
+            for(Tree t : trees){
+                t.changeImages(imageStore.getImageList(Util.TREE_KEY + "Z"));
+            }
+//            GamePlayState.loadImages(Util.IMAGE_LIST_FILE_NAME, imageStore, Ggame.getScreen());
+//            GamePlayState.loadWorld(world, Util.LOAD_FILE_NAME, imageStore);
+            inZombieMode = true;
+        }
+
+
+
+
     }
 
     public void upgradeHouse(Point pressed, EventScheduler scheduler, ImageStore imageStore){

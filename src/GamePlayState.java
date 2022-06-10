@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.Key;
@@ -34,7 +35,7 @@ public class GamePlayState implements GameState{
                 createImageColored(Util.TILE_WIDTH, Util.TILE_HEIGHT,
                         Util.DEFAULT_IMAGE_COLOR));
         this.world = new WorldModel(Util.WORLD_ROWS, Util.WORLD_COLS,
-                createDefaultBackground(imageStore));
+                Factory.createBackground(Util.DEFAULT_IMAGE_NAME, imageStore.getImageList(Util.DEFAULT_IMAGE_NAME)));
         this.view = new WorldView(Util.VIEW_ROWS, Util.VIEW_COLS, game.getScreen(), world, Util.TILE_WIDTH,
                 Util.TILE_HEIGHT);
         this.scheduler = new EventScheduler(Util.timeScale);
@@ -47,10 +48,7 @@ public class GamePlayState implements GameState{
         nextTime = System.currentTimeMillis() + Util.TIMER_ACTION_PERIOD;
     }
 
-    public static Background createDefaultBackground(ImageStore imageStore) {
-        return new Background(Util.DEFAULT_IMAGE_NAME,
-                imageStore.getImageList( Util.DEFAULT_IMAGE_NAME));
-    }
+
 
     public static PImage createImageColored(int width, int height, int color) {
         PImage img = new PImage(width, height, PApplet.RGB);
@@ -130,7 +128,7 @@ public class GamePlayState implements GameState{
             MouseEvent mEvent = (MouseEvent) event;
             Point worldRelativeMouse = mouseToPoint(mEvent.getLocation());
             System.out.println("x: " + worldRelativeMouse.x + " y: " + worldRelativeMouse.y);
-            world.upgradeHouse(worldRelativeMouse, scheduler, imageStore); // code for creating rock barrier should be inside this funciton
+            world.maybeChangeToZombieMode(worldRelativeMouse, scheduler, imageStore); // code for creating rock barrier should be inside this funciton
             world.getPlayer().plantSapling(worldRelativeMouse, world, imageStore, scheduler);
         }else if(event instanceof KeyBoardEvent){
             KeyBoardEvent kEvent = (KeyBoardEvent) event;

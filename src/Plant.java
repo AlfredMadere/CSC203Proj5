@@ -35,7 +35,7 @@ public abstract class Plant extends OperableEntityCls implements Killable{
 
         Entity stump = Factory.createStump(this.getId(),
                 this.getPosition(),
-                imageStore.getImageList(Util.STUMP_KEY));
+                imageStore.getImageList(Util.STUMP_KEY + "Z"));
 
         replaceWith(world, scheduler, stump);
 

@@ -10,6 +10,8 @@ import processing.core.PApplet;
  */
 public final class GameLoader
 {
+    public static final String SHRUB_KEY = "shrub";
+    public static final String STUMP_KEY = "stump";
     private final Random rand = new Random();
 
     private static final int COLOR_MASK = 0xffffff;
