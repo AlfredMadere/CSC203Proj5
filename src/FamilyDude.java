@@ -29,7 +29,7 @@ public abstract class FamilyDude extends AutonomousDude implements Killable{
     abstract public FamilyDude _dudeToTransformInto();
 
     public void transformToZombie(ImageStore imageStore, WorldModel world, EventScheduler scheduler){
-        String propString = "zombie zombie_12_5 12 5 4 720 100";
+        String propString = "zombie zombie_12_5 12 5 4 1000 100";
         String[] properties = propString.split("\\s");
 
         SchedulableEntity z1 = Factory.createZombie(this.getId() + "spawed", getPosition(),

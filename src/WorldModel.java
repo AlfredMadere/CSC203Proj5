@@ -168,7 +168,7 @@ public final class WorldModel
 
 
     public void spawnZombiesNear(Point pressed, ImageStore imageStore, EventScheduler scheduler){
-        String propString = "zombie zombie_12_5 12 5 4 720 100";
+        String propString = "zombie zombie_12_5 12 5 4 1000 100";
         String[] properties = propString.split("\\s");
         Point spawnLocation1 = new Point(pressed.x + 2, pressed.y);
         SchedulableEntity z1 = Factory.createZombie(player.getId() + "spawed", spawnLocation1,
