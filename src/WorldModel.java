@@ -17,7 +17,7 @@ public final class WorldModel
     private Set<Entity> entities;
     private Player player;
     private House house;
-    private boolean inZombieMode;
+    public boolean inZombieMode;
 
     public WorldModel(int numRows, int numCols, Background defaultBackground) {
         this.numRows = numRows;
@@ -138,6 +138,62 @@ public final class WorldModel
         }
     }
 
+    public void poisonSurroundingTiles(Point pressed, ImageStore imageStore, EventScheduler scheduler){
+        List<Point> locationsToPoison = new ArrayList<>();
+        locationsToPoison.add(new Point(pressed.x, pressed.y));
+        locationsToPoison.add(new Point(pressed.x - 1, pressed.y));
+        locationsToPoison.add(new Point(pressed.x + 1, pressed.y));
+        locationsToPoison.add(new Point(pressed.x, pressed.y - 1));
+        locationsToPoison.add(new Point(pressed.x, pressed.y + 1));
+        locationsToPoison.add(new Point(pressed.x - 2, pressed.y));
+        locationsToPoison.add(new Point(pressed.x + 2, pressed.y));
+        locationsToPoison.add(new Point(pressed.x, pressed.y+ 2));
+        locationsToPoison.add(new Point(pressed.x + 1, pressed.y+1));
+        locationsToPoison.add(new Point(pressed.x - 1, pressed.y+ 1));
+        locationsToPoison.add(new Point(pressed.x + 1, pressed.y -1));
+        locationsToPoison.add(new Point(pressed.x - 1, pressed.y -1));
+
+        List<Point> validLocationsToPoison = locationsToPoison.stream().filter(this::withinBounds).toList();
+        List<FamilyDude> dudesToBeZombieIfied = getEntities().stream().filter((e) -> e instanceof FamilyDude).map(e -> ((FamilyDude)e)).filter((d) -> validLocationsToPoison.contains(d.getPosition())).collect(Collectors.toList());
+
+        for(Point p : validLocationsToPoison){
+            getBackgroundCell(p).setImages(imageStore.getImageList(Util.ZOMBIE_BACKGROUND_NAME)); // whatever the fuck I want
+        }
+        for(FamilyDude fd : dudesToBeZombieIfied){
+            fd.transformToZombie(imageStore, this, scheduler);
+        }
+
+    }
+
+
+
+    public void spawnZombiesNear(Point pressed, ImageStore imageStore, EventScheduler scheduler){
+        String propString = "zombie zombie_12_5 12 5 4 720 100";
+        String[] properties = propString.split("\\s");
+        Point spawnLocation1 = new Point(pressed.x + 2, pressed.y);
+        SchedulableEntity z1 = Factory.createZombie(player.getId() + "spawed", spawnLocation1,
+                Integer.parseInt(properties[GameLoader.ZOMBIE_ACTION_PERIOD]),
+                Integer.parseInt(properties[GameLoader.ZOMBIE_ANIMATION_PERIOD]),
+                Integer.parseInt(properties[GameLoader.ZOMBIE_LIMIT]),
+                imageStore.getImageList(Util.ZOMBIE_KEY));
+        Point spawnLocation2 = new Point(pressed.x - 2, pressed.y);
+        SchedulableEntity z2 = Factory.createZombie(player.getId() + "spawed2", spawnLocation2,
+                Integer.parseInt(properties[GameLoader.ZOMBIE_ACTION_PERIOD]),
+                Integer.parseInt(properties[GameLoader.ZOMBIE_ANIMATION_PERIOD]),
+                Integer.parseInt(properties[GameLoader.ZOMBIE_LIMIT]),
+                imageStore.getImageList(Util.ZOMBIE_KEY));
+        try{
+            tryAddEntity(z1);// whatever the fuck I want
+            tryAddEntity(z2);// whatever the fuck I want
+            z1.scheduleActions(scheduler, this, imageStore);
+            z2.scheduleActions(scheduler, this, imageStore);
+
+        }catch (IllegalArgumentException e){
+            System.out.println(e);
+        }
+
+    }
+
     public void maybeChangeToZombieMode(Point pressed, EventScheduler scheduler, ImageStore imageStore){
         /*
         change background tiles
@@ -146,7 +202,6 @@ public final class WorldModel
 
         then create zombies and make family spawn around house
         */
-        if(getHouse().getPosition().equals(pressed) && !inZombieMode){
             Background zombieModeBackground = Factory.createBackground(Util.ZOMBIE_BACKGROUND_NAME, imageStore.getImageList(Util.ZOMBIE_BACKGROUND_NAME));
             setBackground(zombieModeBackground);
             //this is gonna be jank because the Util key names are not static members of each class but im rushed for time sooo check this mess out
@@ -164,27 +219,16 @@ public final class WorldModel
             for(Tree t : trees){
                 t.changeImages(imageStore.getImageList(Util.TREE_KEY + "Z"));
             }
-//            GamePlayState.loadImages(Util.IMAGE_LIST_FILE_NAME, imageStore, Ggame.getScreen());
-//            GamePlayState.loadWorld(world, Util.LOAD_FILE_NAME, imageStore);
+
             inZombieMode = true;
-        }
+
 
 
 
 
     }
 
-    public void upgradeHouse(Point pressed, EventScheduler scheduler, ImageStore imageStore){
-        if (getHouse().getPosition().equals(pressed) && !getHouse().isMega()){ //changed this to be more dynamic
-            House oldHouse = getHouse();
-            removeEntity(oldHouse);
-            scheduler.unscheduleAllEvents(oldHouse);
-            House newHouse = (House) Factory.createMegaHouse("Mansion", new Point(pressed.x - 2, pressed.y - 2), imageStore.getImageList("mansion"), 20);
-            addEntity(newHouse);
-            setHouse(newHouse);
 
-        }
-    }
     public void moveEntity(Entity entity, Point pos) {
         Point oldPos = entity.getPosition();
         if (withinBounds(pos) && !pos.equals(oldPos)) {
