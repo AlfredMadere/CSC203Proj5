@@ -34,6 +34,7 @@ public final class FamilyDudeFull extends FamilyDude
         if (fullTarget.isPresent() && moveTo(world,
                 fullTarget.get(), scheduler))
         {
+            world.getHouse().increaseResource(resourceLimit);
             transform( world, scheduler, imageStore);
 
         }
@@ -67,11 +68,11 @@ public final class FamilyDudeFull extends FamilyDude
 
     @Override
     public int getHealth() {
-        return 0;
+        return health;
     }
 
     @Override
     public void setHealth(int health) {
-
+        this.health = health;
     }
 }

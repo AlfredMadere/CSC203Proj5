@@ -26,6 +26,10 @@ dude images/dude0.png
 dude images/dude1.png
 dude images/dude2.png
 dude images/dude3.png
+zombie images/dude0.png
+zombie images/dude1.png
+zombie images/dude2.png
+zombie images/dude3.png
 fairy images/fairy0.png
 fairy images/fairy1.png
 fairy images/fairy2.png
@@ -47,4 +51,5 @@ player images/wyvern5.bmp
 player images/wyvern6.bmp
 player images/wyvern7.bmp
 player images/wyvern8.bmp
+shrub images/sapling2.png
 

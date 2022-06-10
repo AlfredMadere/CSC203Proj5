@@ -21,6 +21,23 @@ public class Factory {
                 animationPeriod, Util.FAMILY_HEALTH_LIM, Util.FAMILY_STARTING_HEALTH);
     }
 
+    public static SchedulableEntity createZombie(
+            String id,
+            Point position,
+            int actionPeriod,
+            int animationPeriod,
+            int resourceLimit,
+            List<PImage> images)
+    {
+        return new Zombie(id,
+                position,
+                animationPeriod,
+                actionPeriod,
+                resourceLimit,
+                images,
+                Util.FAMILY_HEALTH_LIM, Util.FAMILY_STARTING_HEALTH);
+    }
+
     public static SchedulableEntity createPlayer(
             String id,
             Point position,

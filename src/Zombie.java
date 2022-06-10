@@ -9,7 +9,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class Zombie extends AutonomousDude{
-
+    private boolean onlyTargetPlayer = false;
     public Zombie(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> images, int healthLimit, int startingHealth) {
         super(id, position, animationPeriod, actionPeriod, resourceLimit, images, healthLimit, startingHealth);
     }
@@ -19,19 +19,20 @@ public class Zombie extends AutonomousDude{
     @Override
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler) {
         Optional<Entity> target =
-                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(FamilyDude.class, Player.class)));
-        if (target.isPresent() && moveTo(world,
-                target.get(), scheduler))
+                world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(FamilyDudeFull.class, FamilyDudeNotFull.class, Player.class)));
+
+        if(onlyTargetPlayer){
+           target =
+                    world.findNearest(this.getPosition(), new ArrayList<>(Arrays.asList(Player.class)));
+        }
+
+        if (target.isPresent())
         {
-            if(target.get() instanceof Killable ){
-                ((Killable) target.get()).harm(3);
-            }
+            moveTo(world,
+                    target.get(), scheduler);
         }
-        else {
-            scheduler.scheduleEvent(this,
-                    Factory.createActivityAction(this, world, imageStore),
-                    this.getActionPeriod());
-        }
+        scheduler.scheduleEvent(this,
+                Factory.createActivityAction(this, world, imageStore), this.getActionPeriod());
     }
 
     //not pulling up aspects of next position because I want the flexibility to change how the zombies behave easily, like maybe give them some crazy pathing strategy that makes them walk like a zombie
@@ -39,7 +40,7 @@ public class Zombie extends AutonomousDude{
     public Point _nextPosition(WorldModel world, Point destPos) {
         PathingStrategy strategy = new AStarPathingStrategy();
         //zombies can pass through plants and it kills them, they don't target them though
-        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class || world.isOccupied(p) && world.getOccupancyCell(p) instanceof Plant);
+        Predicate<Point> canPassThrough = (p) -> world.withinBounds(p) && (!world.isOccupied(p) || ((world.isOccupied(p) && world.getOccupancyCell(p).getClass() == Stump.class) || (world.isOccupied(p) && world.getOccupancyCell(p) instanceof Plant)));
 
         BiPredicate<Point, Point> withinReach = Point::adjacent;
         List<Point> points = strategy.computePath(getPosition(), destPos, canPassThrough, withinReach, PathingStrategy.CARDINAL_NEIGHBORS);
@@ -60,13 +61,17 @@ public class Zombie extends AutonomousDude{
 
     @Override
     public void _doAdjacency(WorldModel world, Entity target, EventScheduler scheduler) {
+        System.out.println("callto adjacency");
+        System.out.println(((Killable) target).getHealth());
+
         ((Killable) target).harm(3);
     }
 
-    /*
-    this is repeated code and I need it inside every thing that implements the Killable interface
-    pretty sure you can't have code in an interface though, hella anoying. they should make an interface that allows
-     you to put standard functions in it
-    */
+    //can later develop capability to only target player
+    public void setOnlyTargetPlayer(boolean b){
+        onlyTargetPlayer = b;
+    }
+
+
 
 }

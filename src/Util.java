@@ -23,6 +23,8 @@ public final class Util
     public static final int SAPLING_HEALTH_LIMIT = 5;
     public static final int SAPLING_ACTION_ANIMATION_PERIOD = 1000; // have to be in sync since grows and gains health at same time
 
+    public static final String SHRUB_KEY = "shrub";
+
 
     public static final String STUMP_KEY = "stump";
 

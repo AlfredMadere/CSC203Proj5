@@ -163,6 +163,9 @@ public class GamePlayState implements GameState{
             case ' ':
                 world.getPlayer().stopChopping();
                 break;
+            case 'y':
+                world.getPlayer().attractZombies(world, false);
+                break;
 
         }
 
@@ -185,6 +188,9 @@ public class GamePlayState implements GameState{
                 break;
             case ' ':
                 world.getPlayer().startChopping();
+                break;
+            case 'y':
+                world.getPlayer().attractZombies(world, true);
                 break;
 
         }
@@ -224,6 +230,9 @@ public class GamePlayState implements GameState{
         //this should not be here, this is an event
         if(world.getHouse().isFull()){
             game.ChangeState(WinState.getSingleton());
+        }
+        if(world.getPlayer().getHealth() <= 0){
+            game.ChangeState(LoseState.getSingleton());
         }
     }
 

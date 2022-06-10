@@ -46,7 +46,7 @@ public abstract class Plant extends OperableEntityCls implements Killable{
                             EventScheduler scheduler,
                             ImageStore imageStore){
         Entity shrub = Factory.createShrub(this.getId(),
-                this.getPosition(), imageStore.getImageList(Util.STUMP_KEY));
+                this.getPosition(), imageStore.getImageList(Util.SHRUB_KEY));
 
         replaceWith(world, scheduler, shrub);
     }
