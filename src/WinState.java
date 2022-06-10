@@ -2,7 +2,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class WinState implements GameState{
-    String backgroundImageName = "winScreen.png";
+    String backgroundImageName = Util.WIN_SCREEN_NAME;
     private PApplet screen;
     private static GameState singleton;
     private PImage backgroundImage;
@@ -20,6 +20,8 @@ public class WinState implements GameState{
         this.game = game;
         screen = game.getScreen();
         PImage img = screen.loadImage(backgroundImageName);
+        img.resize(Util.VIEW_WIDTH, Util.VIEW_HEIGHT); //not working for some reason?? even though this is what the internet said
+        img.updatePixels();
         backgroundImage = img;
 
     }
