@@ -20,7 +20,7 @@ public class RoundButton extends Button{
     void _drawShapeAndText(PApplet screen) {
         screen.circle(getPosition().x, getPosition().y, radius*2);
         screen.fill(0,0,0); //could add text color later for more flexibiliy
-        screen.textMode(PConstants.CENTER);
+        screen.textAlign(PConstants.CENTER);
         screen.text(getText(), getPosition().x, getPosition().y);
 
     }

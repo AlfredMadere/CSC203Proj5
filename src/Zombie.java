@@ -54,7 +54,7 @@ public class Zombie extends AutonomousDude{
                 Plant plantToKill = (Plant) world.getOccupancyCell(newPos);
                 plantToKill.setHealth(-10);
             }
-            setPosition(newPos);
+            world.moveEntity(this, newPos);
             return points.get(0);
         }
     }

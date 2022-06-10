@@ -46,7 +46,7 @@ public final class WorldView
         this.screen.noStroke();
         this.screen.rect(viewportWidth - Util.DASHBOARD_WIDTH, 0, Util.DASHBOARD_WIDTH, Util.DASHBOARD_HEIGHT);
         this.screen.fill(0);
-        this.screen.text(dashBoardText, viewport.getNumCols() * tileWidth - (Util.DASHBOARD_WIDTH - 15), 50);
+        this.screen.text(dashBoardText, viewport.getNumCols() * tileWidth - (Util.DASHBOARD_WIDTH/2 ), 50);
     }
 
     public void drawEntities() {

@@ -63,8 +63,7 @@ public class WinState implements GameState{
 
     @Override
     public void Draw(Game game) {
-        this.screen.image(backgroundImage.get(), 0, 0,
-                screen.displayWidth, screen.displayHeight);
+        this.screen.image(backgroundImage.get(), 0, 0);
         //this.screen.background(backgroundImage);
 
     }

@@ -44,7 +44,7 @@ public class Player extends OperableEntityCls implements Killable{
             if(world.isOccupied(newPos) && world.getOccupancyCell(newPos).getClass() == Stump.class){
                 world.removeEntity(world.getOccupant(newPos).get());
             }
-            setPosition(newPos);
+            world.moveEntity(this, newPos);
         }else{
             xVelocity = 0;
             yVelocity = 0;
