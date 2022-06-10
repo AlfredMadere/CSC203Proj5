@@ -18,4 +18,8 @@ public final class Background
     public PImage getCurrentImage() {
             return images.get(0);
     }
+
+    public void setImages(List<PImage> images) {
+        this.images = images;
+    }
 }

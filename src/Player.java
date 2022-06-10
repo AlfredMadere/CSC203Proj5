@@ -16,7 +16,7 @@ public class Player extends OperableEntityCls implements Killable{
     private int resourceCount = 0;
     private int resourceLimit;
     private int planted = 0;
-    private int health = 10;
+    private int health = 100;
     private int healthLimit;
     public Player(String id, Point position, int animationPeriod, int actionPeriod, int resourceLimit, List<PImage> image) {
         super(id, position, image, animationPeriod, actionPeriod);
@@ -97,7 +97,7 @@ public class Player extends OperableEntityCls implements Killable{
 
     public void plantSapling(Point pressed, WorldModel world, ImageStore imageStore, EventScheduler scheduler){
         Optional<Entity> entityOptional = world.getOccupant(pressed);
-        if (!entityOptional.isPresent() && Point.adjacent(pressed, getPosition()) && resourceCount > 0) {
+        if (!entityOptional.isPresent() && resourceCount > 0) {
             Sapling plantedSapling = (Sapling) Factory.createSapling("planted_sapling_" + planted, pressed, imageStore.getImageList(Util.SAPLING_KEY));
             world.addEntity(plantedSapling);
             plantedSapling.scheduleActions(scheduler, world, imageStore);

@@ -6,12 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.Key;
 import java.util.Iterator;
-import java.util.Optional;
 import java.util.Scanner;
 
 import static processing.core.PConstants.*;
 
-public class GamePlayState implements GameState{
+public class ZombieModeState implements GameState{
     //This should proba all live in Game
     private ImageStore imageStore;
     private WorldModel world;
@@ -26,7 +25,7 @@ public class GamePlayState implements GameState{
 
     public static GameState getSingleton (){
         if(singleton == null){
-            singleton = new GamePlayState();
+            singleton = new ZombieModeState();
         }
         return singleton;
     }
@@ -130,16 +129,14 @@ public class GamePlayState implements GameState{
             MouseEvent mEvent = (MouseEvent) event;
             Point worldRelativeMouse = mouseToPoint(mEvent.getLocation());
             System.out.println("x: " + worldRelativeMouse.x + " y: " + worldRelativeMouse.y);
-            if (Point.adjacent(worldRelativeMouse, world.getPlayer().getPosition())){
-                world.getPlayer().plantSapling(worldRelativeMouse, world, imageStore, scheduler);
-            }
-            else{
-                if(world.getPlayer().getPosition().distanceTo(worldRelativeMouse) > 5){
-                    world.spawnZombiesNear(worldRelativeMouse, imageStore, scheduler);
-                    world.poisonSurroundingTiles(worldRelativeMouse, imageStore, scheduler);
-                }
-            }
+            if(world.getHouse().getPosition().equals(worldRelativeMouse) && !world.inZombieMode) {
+                world.maybeChangeToZombieMode(worldRelativeMouse, scheduler, imageStore);
+                loadImages(Util.IMAGE_LIST_FILE_NAME, imageStore, screen);
+                loadWorld(world, Util.LOAD_FILE_NAME, imageStore);
 
+            }
+            // code for creating rock barrier should be inside this funciton
+            world.getPlayer().plantSapling(worldRelativeMouse, world, imageStore, scheduler);
         }else if(event instanceof KeyBoardEvent){
             KeyBoardEvent kEvent = (KeyBoardEvent) event;
             if(kEvent.isPressed()){
